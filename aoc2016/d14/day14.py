@@ -26,21 +26,23 @@ class Solver(object):
 
     @staticmethod
     def encode(input_string):
+        hashed = input_string
         for _ in range(2017):
-            input_string = md5(input_string.encode('utf-8')).hexdigest()
-        return input_string
+            hashed = md5(hashed.encode('utf-8')).hexdigest()
+        return hashed
 
     def go2(self):
         keys = []
         hashes = ''
-        f = open('./day14_hashes.txt', 'r+')
-        try:
+        with open('./d14p2_hashes.txt', 'a+') as f:
             hashes = f.read()
-        except FileNotFoundError:
-            for i in range(50000):
-                input_string = '{}{}'.format(self.salt, i)
-                hashes += '{}:{}\n'.format(i, self.encode(input_string))
-            print(hashes, file=f)
+            if len(hashes.splitlines()) == 0:
+                for i in range(30000):
+                    input_string = '{}{}'.format(self.salt, i)
+                    hashes += '{}:{}\n'.format(i, self.encode(input_string))
+                    if i % 1000 == 0:
+                        print(i)
+                print(hashes, file=f)
         match3 = re.findall(r'(\d+):.*?(.)(\2{2}).*?', hashes)
         match5 = re.findall(r'(\d+):.*?(.)(\2{4}).*?', hashes)
         for i, char, _ in match3:
@@ -54,15 +56,16 @@ class Solver(object):
                     break
 
 if __name__ == '__main__':
-    test = Solver('abc')
+    # test = Solver('abc')
     # test.go()
-    test.go2()
+    # test.go2()
     s = Solver('cuanljph')
-    s.go()
-    # s.go2()
+    # s.go()
+    s.go2()
 
     # not 23981, 24259, 24398, 24298
-    # not 19903, 20188, 20307, 20351, 23670, 23695, 23769
+    # not 19903, 20188, 20307, 20351, 23670, 23695, 23769,
+    # not 20683
 
     # 12012
     # 19730

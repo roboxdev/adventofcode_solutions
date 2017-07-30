@@ -50,7 +50,32 @@ class Solver(object):
             new_moves = temp
             field |= temp
             d += 1
-            print(len(new_moves), d)
+            # print(len(new_moves), d)
+
+        pass
+
+    def go2(self):
+        a = RoomState((*self.START, self.start_hash))
+        d = 0
+        field = set()
+        new_moves = [a]
+        possible_solution = 0
+        while True:
+            temp = set()
+            for f in new_moves:
+                for move in f.get_possible_moves():
+                    if move and move not in field:
+                        if move[:2] == self.FINISH:
+                            possible_solution = len(move[-1].lstrip(self.start_hash))
+                        else:
+                            temp.add(move)
+            new_moves = temp
+            field |= temp
+            d += 1
+            if d >= 5000:  # extremely stupid, but should be enough
+                print('SOLUTION p2', possible_solution)
+                return possible_solution
+            # print(len(new_moves), d)
 
         pass
 
@@ -58,9 +83,13 @@ class Solver(object):
 if __name__ == '__main__':
     test = Solver('ihgpwlah')
     assert test.go() == 'DDRRRD'
+    assert test.go2() == 370
     test = Solver('kglvqrro')
     assert test.go() == 'DDUDRLRRUDRD'
+    assert test.go2() == 492
     test = Solver('ulqzkmiv')
     assert test.go() == 'DRURDRUDDLLDLUURRDULRLDUUDDDRR'
+    assert test.go2() == 830
     s = Solver('dmypynyp')
     print(s.go())
+    print(s.go2())

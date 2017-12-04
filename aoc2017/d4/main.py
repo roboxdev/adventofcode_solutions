@@ -1,14 +1,20 @@
-raw_input = ''
-with open('./raw_input.txt') as f:
-    raw_input = f.read()
+from aocframework import AoCFramework
 
 
-lines = raw_input.splitlines()
+class Day(AoCFramework):
+    test_cases = (
+        ('aa bb cc dd ee', 1),
+        ('aa bb cc dd aa', 0),
+        ('aa bb cc dd aaa', 1),
+    )
 
-counter = 0
-for line in lines:
-    splitted = line.split()
-    if len(splitted) == len(set(splitted)):
-        counter += 1
+    def go(self):
+        counter = 0
+        for line in self.linesplitted:
+            splitted = line.split()
+            if len(splitted) == len(set(splitted)):
+                counter += 1
+        return counter
 
-print(counter)
+
+Day()

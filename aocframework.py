@@ -6,7 +6,7 @@ import requests
 class AoCFramework(object):
     session_token = ''
     raw_puzzle_input = ''
-    test_cases = ('', 0),
+    test_cases = ('test case placeholder', 0),
 
     def get_session_token(self, token_path):
         with open(token_path) as f:
@@ -31,18 +31,18 @@ class AoCFramework(object):
         *root, aoc_year, d_day, _ = p.parts
         self.year = aoc_year[-4:]
         self.day = d_day[1:]
-        if puzzle_input:
-            self.raw_puzzle_input = puzzle_input
-        else:
+        if puzzle_input is None:
             self.get_session_token(p.joinpath(*root, 'session_token'))
             self.get_puzzle_input(p.joinpath(*p.parts[:-1], 'raw_input.txt'))
+        else:
+            self.raw_puzzle_input = puzzle_input
         self.linesplitted = self.raw_puzzle_input.splitlines()
-        if not puzzle_input:
+        if puzzle_input is None:
             pprint(self.linesplitted)
             print('***')
             self.run_tests()
         self.result = self.go()
-        if not puzzle_input:
+        if puzzle_input is None:
             print('Answer:', self.result)
         pass
 

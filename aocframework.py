@@ -56,4 +56,4 @@ class AoCFramework(object):
                 print(f'Test fail: {case} == {day.result} != {result}')
 
     def go(self):
-        return
+        raise NotImplementedError

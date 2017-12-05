@@ -7,6 +7,7 @@ class AoCFramework(object):
     session_token = ''
     raw_puzzle_input = ''
     test_cases = ('test case placeholder', 0),
+    known_result = None
 
     def get_session_token(self, token_path):
         with open(token_path) as f:
@@ -44,6 +45,11 @@ class AoCFramework(object):
         self.result = self.go()
         if puzzle_input is None:
             print('Answer:', self.result)
+            if self.known_result is not None:
+                if self.result == self.known_result:
+                    print('You are right!')
+                else:
+                    print('You are wrong (answer must be %s)' % self.known_result)
         pass
 
     def run_tests(self):

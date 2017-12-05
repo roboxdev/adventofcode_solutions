@@ -11,7 +11,7 @@ class Day(AoCFramework):
     )
 
     def go(self):
-        self.linesplitted = list(map(int, self.linesplitted))
+        int_linesplitted = list(map(int, self.linesplitted))
         steps_counter = 0
         current_pos = 0
         while True:
@@ -19,11 +19,12 @@ class Day(AoCFramework):
                 return steps_counter
             try:
                 t = current_pos
-                next_pos = self.linesplitted[current_pos] + current_pos
+                next_pos = int_linesplitted[current_pos] + current_pos
                 current_pos = next_pos
-                self.linesplitted[t] += -1 if self.linesplitted[t] >= 3 else 1
+                int_linesplitted[t] += -1 if int_linesplitted[t] >= 3 else 1
             except IndexError:
                 return steps_counter
             steps_counter += 1
+
 
 Day()

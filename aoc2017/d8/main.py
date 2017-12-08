@@ -4,8 +4,15 @@ import re
 
 class Day(AoCFramework):
     test_cases = (
+        ('''b inc 5 if a > 1
+a inc 1 if b < 5
+c dec -10 if a >= 1
+c inc -20 if c == 10''', 1),
     )
-    registers = {}
+
+    def __init__(self, puzzle_input=None):
+        self.registers = {}
+        super(Day, self).__init__(puzzle_input)
 
     def do_operation(self, register, operation, amount, c_register, c_sign, c_amount):
         amount, c_amount = int(amount), int(c_amount)

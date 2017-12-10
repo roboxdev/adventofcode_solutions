@@ -13,7 +13,7 @@ class Day(AoCFramework):
     )
 
     def go(self):
-        puzzle_input = ','.join(map(str, self.puzzle_input.encode('ascii')))
+        puzzle_input = ','.join(map(str, self.puzzle_input.strip().encode('ascii')))
         puzzle_input += ',' if puzzle_input else ''
         puzzle_input += '17,31,73,47,23'
         puzzle_input = list(map(int, puzzle_input.split(',')))
@@ -27,7 +27,7 @@ class Day(AoCFramework):
                 l.rotate(pos)
                 pos += length + skip_size
                 skip_size += 1
-        sparse_hash = zip(*[iter(l)]*16)
+        sparse_hash = list(zip(*[iter(l)]*16))
         dense_hash = [reduce(lambda a, b: a ^ b, v) for v in sparse_hash]
         answer = ''.join(map(lambda v: format(v, '02x'), dense_hash))
         return answer

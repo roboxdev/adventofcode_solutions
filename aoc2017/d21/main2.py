@@ -2,8 +2,6 @@ import numpy as np
 
 from aocframework import AoCFramework
 
-MAGIC_STABILITY_REFERENCE = 1000  # Hope that's enough
-
 
 class Day(AoCFramework):
     test_cases = (

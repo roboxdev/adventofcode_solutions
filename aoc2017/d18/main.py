@@ -1,5 +1,5 @@
 import re
-from collections import deque, defaultdict
+from collections import defaultdict
 
 from aocframework import AoCFramework
 
@@ -38,7 +38,7 @@ jgz a -2''', 4),
 
     def jgz(self, x, y):
         if self.d[x] > 0:
-            self.operation_pos += int(y) - 1
+            self.operation_pos += (self.d[y] if y.isalpha() else int(y)) - 1
 
     def go(self):
         self.last_sound = 0
